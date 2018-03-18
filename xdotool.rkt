@@ -59,10 +59,10 @@
 (: convert-log-path (-> (Listof String) Any))
 (define (convert-log-path file-contents)
   (map (lambda (line)
-         ; TODO, only look for "key release N" not "key press" too.
-         ; Otherwise you get strange results.
+         (let ([line (string-split line)])
          ;Format of the string is "key press 36"
-         (hash-ref keymap (third (string-split line))))
+           (when(member "release" line)
+               (hash-ref keymap (third line)))))
        file-contents))
 
 (: get-xdotool-path (-> String))
