@@ -1,6 +1,7 @@
 #lang racket
 
 (require "xtools.rkt")
+(require "snippets.rkt")
 (require "log.rkt")
 
 (define log-path "lll")

@@ -19,4 +19,6 @@
 (: build-xdotool-command (-> String String))
 (define (build-xdotool-command word)
   (string-append
+    ; TODO escape word so characters don't break. This
+    ; will probably mean reworking this solution.
     (get-xdotool-path) " type " word))
