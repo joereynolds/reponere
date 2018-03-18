@@ -11,9 +11,9 @@
 
 ;The holy land
 (: trigger-snippet (-> Any))
-(define (trigger-snippet snippet-directory)
+(define (trigger-snippet snippet-directory clean-log-path)
   (map (lambda (snippet)
-         (when (string-contains? (get-clean-log-contents "clean.log")
+         (when (string-contains? (file->string clean-log-path)
                                  (string-append snippet "<tab>"))
            (trigger-snippet-for-word snippet-directory snippet)))
          (get-snippets snippet-directory)))

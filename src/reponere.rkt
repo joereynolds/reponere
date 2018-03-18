@@ -4,23 +4,27 @@
 (require "log.rkt")
 (require "snippets.rkt")
 
-(define log-path "lll")
+(define clean-log-path "clean.log")
+(define log-path "raw-log.log")
 (define snippet-directory "/home/joe/programs/reponere/snippets/")
 
 (define (cleanup)
+  (remove-log-files clean-log-path log-path)
   (custodian-shutdown-all (make-custodian))) ; Remove log files here too
 
-; TODO check for an already running instance of xinput here before starting xinput
-(start-xinput log-path)
+(define (loop)
+  (write-converted-log
+    clean-log-path
+    (convert-xinput-log (file->lines log-path)))
+  (trigger-snippet snippet-directory clean-log-path)
+  (loop))
 
-(write-converted-log
-  "clean.log"
-  (convert-xinput-log (file->lines log-path)))
+(unless (xtools-running?)
+  (start-xinput log-path))
 
-(trigger-snippet snippet-directory)
 ; TODO
 ;  - Breaks on these characters `;| (because shell duh)
 ;  - Spaces aren't honoured on any snippets'
-(trigger-snippet-for-word snippet-directory "validation")
-
+#| (trigger-snippet-for-word snippet-directory "validation") |#
+(loop)
 (cleanup)

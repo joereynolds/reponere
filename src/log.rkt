@@ -2,7 +2,7 @@
 
 (require "keys.rkt")
 
-(provide convert-xinput-log write-converted-log get-clean-log-contents)
+(provide convert-xinput-log write-converted-log remove-log-files)
 
 ; Converts xinput's log file into something friendly
 (: convert-xinput-log (-> (Listof String) Any))
@@ -17,12 +17,7 @@
   (call-with-output-file log-path
     (lambda (out)
       (write (string-join log-entries "") out))
-    #:exists 'replace))
-
-; TODO Create files.rkt and put this in as a generic function
-(: get-clean-log-contents (-> String String))
-(define (get-clean-log-contents clean-log-path)
-  (file->string clean-log-path))
+    #:exists 'truncate/replace))
 
 (: filter-bad-entries (-> (Listof String) Any))
 (define (filter-bad-entries file-contents)
@@ -30,4 +25,8 @@
    (let ([line (string-split line)])
      (member "release" line)))
     file-contents))
+
+(define (remove-log-files clean-log-path raw-log-path)
+  (delete-file clean-log-path)
+  (delete-file raw-log-path))
 
