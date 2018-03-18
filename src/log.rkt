@@ -16,7 +16,8 @@
 (define (write-converted-log log-path log-entries)
   (call-with-output-file log-path
     (lambda (out)
-      (write (string-join log-entries "") out))))
+      (write (string-join log-entries "") out))
+    #:exists 'replace))
 
 (: filter-bad-entries (-> (Listof String) Any))
 (define (filter-bad-entries file-contents)
