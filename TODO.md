@@ -2,6 +2,10 @@
 - Kill the process when we stop the program
   (we get a pid from starting xinput so just kill that)
 
+- Put up a PR adding string-contains? to vim-racket
+
+
+
 # Caveats
 - The keymap is mapped for British keyboards, no idea
   if this will be a problem on american keyboards.

@@ -2,7 +2,6 @@
 
 (provide get-xdotool-path build-xdotool-command start-xinput)
 
-; TODO close the open file
 (: start-xinput (-> String Any))
 (define (start-xinput log-path)
   (let ([command (string-append "xinput test 10 >> " log-path)])
@@ -14,7 +13,7 @@
 
 (: get-xdotool-path (-> String))
 (define (get-xdotool-path)
-  "xdotool")
+  (path->string (find-executable-path "xdotool")))
 
 (: build-xdotool-command (-> String String))
 (define (build-xdotool-command word)
