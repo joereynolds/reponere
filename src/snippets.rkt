@@ -1,6 +1,6 @@
 #lang typed/racket/no-check
 
-(require "./log.rkt")
+(require "log.rkt")
 (require "xtools.rkt")
 
 (provide trigger-snippet trigger-snippet-for-word)
@@ -15,7 +15,7 @@
   (map (lambda (snippet)
          (when (string-contains? (get-clean-log-contents "clean.log")
                                  (string-append snippet "<tab>"))
-           (trigger-snippet-for-word snippet)))
+           (trigger-snippet-for-word snippet-directory snippet)))
          (get-snippets snippet-directory)))
 
 (define (trigger-snippet-for-word snippet-directory word)

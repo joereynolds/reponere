@@ -18,10 +18,6 @@
   (convert-xinput-log (file->lines log-path)))
 
 (trigger-snippet snippet-directory)
-(trigger-snippet-for-word snippet-directory "email")
-(sleep 2)
-(trigger-snippet-for-word snippet-directory "hb")
-(sleep 2)
 ; TODO
 ;  - Breaks on these characters `;| (because shell duh)
 ;  - Spaces aren't honoured on any snippets'
