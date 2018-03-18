@@ -14,3 +14,9 @@
   - A prettier version which reponere will read from.
     The prettier version is created by reponere from    
     converting the keycodes into letters.
+
+# Troubleshooting
+
+- Multiple keypresses in the log    
+  - Make sure only one instance of xinput is running otherwise janky stuff will happen.
+    kill <tab> (filter by xinput)
