@@ -14,10 +14,10 @@
 
 (: write-converted-log (-> String (Listof String) Any))
 (define (write-converted-log log-path log-entries)
-  (call-with-output-file log-path
+  (call-with-output-file* log-path
     (lambda (out)
       (write (string-join log-entries "") out))
-    #:exists 'truncate/replace))
+    #:exists 'truncate))
 
 (: filter-bad-entries (-> (Listof String) Any))
 (define (filter-bad-entries file-contents)
@@ -27,6 +27,7 @@
     file-contents))
 
 (define (remove-log-files clean-log-path raw-log-path)
-  (delete-file clean-log-path)
-  (delete-file raw-log-path))
-
+  (when (file-exists? clean-log-path)
+    (delete-file clean-log-path))
+  (when (file-exists? raw-log-path)
+    (delete-file raw-log-path)))

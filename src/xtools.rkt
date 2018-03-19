@@ -4,12 +4,8 @@
 
 (: start-xinput (-> String Any))
 (define (start-xinput log-path)
-  (let ([command (string-append "xinput test 10 >> " log-path)])
-  (if (not (file-exists? log-path))
-      (begin
-        (open-output-file log-path #:exists 'truncate/replace)
-        (process command))
-      (process command))))
+  (let ([command (string-append "xinput test 14 >> " log-path)])
+    (process command)))
 
 (: get-xdotool-path (-> String))
 (define (get-xdotool-path)

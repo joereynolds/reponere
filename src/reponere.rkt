@@ -19,12 +19,14 @@
   (trigger-snippet snippet-directory clean-log-path)
   (loop))
 
-(unless (xtools-running?)
-  (start-xinput log-path))
 
 ; TODO
 ;  - Breaks on these characters `;| (because shell duh)
 ;  - Spaces aren't honoured on any snippets'
 #| (trigger-snippet-for-word snippet-directory "validation") |#
+(unless (file-exists? log-path)
+  (open-output-file log-path #:exists 'truncate))
+(unless (xtools-running?)
+  (start-xinput log-path))
 (loop)
 (cleanup)
