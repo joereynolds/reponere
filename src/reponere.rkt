@@ -11,9 +11,13 @@
 (define (cleanup)
   (kill-xinput)
   (remove-log-files clean-log-path log-path)
-  (custodian-shutdown-all (make-custodian))) ; Remove log files here too
+  (custodian-shutdown-all (make-custodian)))
 
 (define (loop)
+
+  (unless (file-exists? log-path)
+    (open-output-file  log-path #:exists 'truncate))
+
   (write-converted-log
     clean-log-path
     (convert-xinput-log (file->lines log-path)))
