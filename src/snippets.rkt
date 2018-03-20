@@ -14,8 +14,10 @@
 (define (trigger-snippet snippet-directory clean-log-path)
   (map (lambda (snippet)
          (when (string-contains? (file->string clean-log-path)
-                                 (string-append snippet "<tab>"))
-           (trigger-snippet-for-word snippet-directory snippet)))
+                                 (string-append snippet "<l-ctrl><space>"))
+           (trigger-snippet-for-word snippet-directory snippet)
+           (process "rm raw-log.log || touch raw-log.log")
+           (process "rm clean.log || touch clean.log")))
          (get-snippets snippet-directory)))
 
 (define (trigger-snippet-for-word snippet-directory word)

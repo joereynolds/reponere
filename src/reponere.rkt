@@ -9,6 +9,7 @@
 (define snippet-directory "/home/joe/programs/reponere/snippets/")
 
 (define (cleanup)
+  (kill-xinput)
   (remove-log-files clean-log-path log-path)
   (custodian-shutdown-all (make-custodian))) ; Remove log files here too
 
@@ -19,14 +20,11 @@
   (trigger-snippet snippet-directory clean-log-path)
   (loop))
 
-
 ; TODO
 ;  - Breaks on these characters `;| (because shell duh)
 ;  - Spaces aren't honoured on any snippets'
 #| (trigger-snippet-for-word snippet-directory "validation") |#
-(unless (file-exists? log-path)
-  (open-output-file log-path #:exists 'truncate))
-(unless (xtools-running?)
-  (start-xinput log-path))
-(loop)
 (cleanup)
+(open-output-file log-path #:exists 'truncate)
+(start-xinput log-path)
+(loop)

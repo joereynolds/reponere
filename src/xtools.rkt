@@ -1,6 +1,6 @@
 #lang typed/racket/no-check
 
-(provide get-xdotool-path build-xdotool-command start-xinput xtools-running?)
+(provide get-xdotool-path build-xdotool-command start-xinput xtools-running? kill-xinput)
 
 (: start-xinput (-> String Any))
 (define (start-xinput log-path)
@@ -22,3 +22,6 @@
   (let ([output (read-line (first (process "ps -aux | grep 'xinput' | wc -l")))])
     ; Not entirely sure why this is 2, thought it should've been 1? (shrug)
     (> (string->number output) 2)))
+
+(define (kill-xinput)
+  (process "killall xinput"))
