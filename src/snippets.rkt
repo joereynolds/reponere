@@ -11,12 +11,12 @@
 
 (: trigger-snippet (-> Any))
 (define (trigger-snippet snippet-directory clean-log-path)
-  (for/list ([snippet (in-list (get-snippets snippet-directory))])
-     (when (file-exists? clean-log-path)
-       (when (log-contains-snippet? clean-log-path snippet)
-         (process "echo '' > raw-log.log")
-         (delete-file clean-log-path)
-         (trigger-snippet-for-word snippet-directory snippet)))))
+  (for/list ([snippet (in-list (get-snippets snippet-directory))]
+             #:when (file-exists? clean-log-path)
+             #:when (log-contains-snippet? clean-log-path snippet))
+    (process "echo '' > raw-log.log")
+    (delete-file clean-log-path)
+    (trigger-snippet-for-word snippet-directory snippet)))
 
 (define (log-contains-snippet? log-path snippet)
   (string-contains? (file->string log-path)
