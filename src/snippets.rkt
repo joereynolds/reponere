@@ -3,7 +3,7 @@
 (require "log.rkt")
 (require "xtools.rkt")
 
-(provide trigger-snippet)
+(provide trigger-snippet get-snippet-contents)
 
 (: get-snippets (-> (Listof String)))
 (define (get-snippets snippet-directory)

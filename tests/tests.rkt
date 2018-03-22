@@ -4,6 +4,14 @@
 (require rackunit/text-ui)
 (require "../src/xtools.rkt")
 (require "../src/log.rkt")
+(require "../src/snippets.rkt")
+
+(define-test-suite snippet-suite
+  "Snippet test suite"
+  (test-case
+    "Test we get the contents of a snippet"
+    (check-equal? (get-snippet-contents "../snippets/" "email")
+    "this is a replacement\n")))
 
 (define-test-suite xtools-suite
   "Xtools test suite"
@@ -42,3 +50,4 @@
 
 (run-tests logging-suite)
 (run-tests xtools-suite)
+(run-tests snippet-suite)
