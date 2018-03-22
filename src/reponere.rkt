@@ -27,7 +27,6 @@
 ; TODO
 ;  - Breaks on these characters `;| (because shell duh)
 ;  - Spaces aren't honoured on any snippets'
-#| (trigger-snippet-for-word snippet-directory "validation") |#
 (cleanup)
 (open-output-file log-path #:exists 'truncate)
 (start-xinput log-path)

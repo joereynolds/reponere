@@ -3,7 +3,7 @@
 (require "log.rkt")
 (require "xtools.rkt")
 
-(provide trigger-snippet trigger-snippet-for-word)
+(provide trigger-snippet)
 
 (: get-snippets (-> (Listof String)))
 (define (get-snippets snippet-directory)
@@ -12,8 +12,8 @@
 (: trigger-snippet (-> Any))
 (define (trigger-snippet snippet-directory clean-log-path)
   (for/list ([snippet (in-list (get-snippets snippet-directory))]
-             #:when (file-exists? clean-log-path)
-             #:when (log-contains-snippet? clean-log-path snippet))
+             #:when (and (file-exists? clean-log-path)
+                         (log-contains-snippet? clean-log-path snippet)))
     (process "echo '' > raw-log.log")
     (delete-file clean-log-path)
     (trigger-snippet-for-word snippet-directory snippet)))
@@ -22,7 +22,9 @@
   (string-contains? (file->string log-path)
                     (string-append snippet "<l-ctrl><space>")))
 
+(define (get-snippet-contents snippet-directory word)
+  (file->string (string-append snippet-directory word)))
+
 (define (trigger-snippet-for-word snippet-directory word)
   (process (build-xdotool-command
-             (file->string
-               (string-append snippet-directory word)))))
+             (get-snippet-contents snippet-directory word))))

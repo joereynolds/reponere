@@ -26,3 +26,9 @@ You need:
 
 - `xdotool` - Sends keystrokes to a given window
 - `xinput`  - Tracks keypresses (Usually already installed on Debian distros)
+
+## Tests
+
+There are some. 
+To run them, cd into the `tests` directory and run `racket tests.rkt`.
+
