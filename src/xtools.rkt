@@ -16,7 +16,7 @@
   (string-append
     ; TODO escape word so characters don't break. This
     ; will probably mean reworking this solution.
-    (get-xdotool-path) " type " word))
+    (get-xdotool-path) " type --delay 40 " word))
 
 (define (kill-xinput)
   (process "killall xinput"))
