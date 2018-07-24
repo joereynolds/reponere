@@ -26,5 +26,7 @@
   (file->string (string-append snippet-directory word)))
 
 (define (trigger-snippet-for-word snippet-directory word)
+  (let* ([deletion-command (string-append* (make-list (string-length word) "BackSpace"))]
+         [command (string-append deletion-command word)])
   (process (build-xdotool-command
-             (get-snippet-contents snippet-directory word))))
+             (string-append deletion-command (get-snippet-contents snippet-directory word))))))
