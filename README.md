@@ -8,7 +8,20 @@ Create your snippets under `~/.config/reponere/`.
 
 Creating a snippet in here will allow it to be expanded. For example, if we
 create a snippet called `email` with the contents `myrealemailaddress@gmail.com`,
-whenever we type `email<tab>` it will be replaced with the contents of that file.
+whenever we type `email<ctrl><space>` it will be replaced with the contents of that file.
+
+The placeholder trigger is <ctr><space>.
+
+### Running it  
+
+Once a snippet is created, you can run the following
+
+```
+cd ./src
+racket reponere.rkt
+```
+
+Now Reponere will begin listening to your key presses.
 
 ### Caveats
 
